@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
-from database import init_db
 from models.modelProduct import Product
-from database import db_session
+import database as db
 
 app = Flask(__name__)
 
@@ -10,15 +9,15 @@ def raiz():
     return '<h2> hello world </h2>'
 
 @app.route('/db')
-def db():
-    init_db()
+def datab():
+    db.init_db()
     return '<h2> init database </h2>'
 
 @app.route('/insert')
 def insert():
     p = Product('queijo', '400')
-    db_session.add(p)
-    db_session.commit()
+    db.db_session.add(p)
+    db.db_session.commit()
     return 'added'
 
 @app.route('/query')

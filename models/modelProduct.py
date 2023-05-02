@@ -1,5 +1,5 @@
-import sqlalchemy as db
 from database import Base
+import sqlalchemy as db
 from models.modelList import List
 
 class Product(Base):
@@ -8,7 +8,8 @@ class Product(Base):
     name = db.Column(db.String(50), nullable=True)
     quantity = db.Column(db.Integer, nullable=True)
 
-    list_id = db.Column("list_id", db.ForeignKey(List.id))
+    list_id = db.Column(db.Integer, db.ForeignKey('lists.id'))
+    
     def __init__(self, name=None, quantity=None):
         self.name = name
         self.quantity = quantity
