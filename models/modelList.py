@@ -1,15 +1,12 @@
-from database import Base
-import sqlalchemy as db
-from sqlalchemy.orm import relationship
-from models.modelUser import User
+from database import db
 
-class List(Base):
+class List(db.Model):
     __tablename__ = 'lists'
     id = db.Column(db.Integer, primary_key=True)
 
-    products = relationship('Product')
+    id_user = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('User')
 
-    user_id = db.Column("user_id", db.ForeignKey(User.id))
     def to_json(self):
         json_lists = {
             'id': self.id,

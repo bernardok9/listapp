@@ -1,29 +1,19 @@
-from flask import Flask, jsonify
+from flask import Flask
+from config import config
+from database import db
+from models.modelList import List
 from models.modelProduct import Product
-import database as db
+from models.modelUser import User
 
 app = Flask(__name__)
+app.config.from_object(config)
+db.init_app(app)
 
-@app.route('/')
-def raiz():
-    return '<h2> hello world </h2>'
+User
+Product
+List
 
 @app.route('/db')
 def datab():
-    db.init_db()
+    db.create_all()
     return '<h2> init database </h2>'
-
-@app.route('/insert')
-def insert():
-    p = Product('queijo', '400')
-    db.db_session.add(p)
-    db.db_session.commit()
-    return 'added'
-
-@app.route('/query')
-def query():
-    products = Product.query.all()
-    return jsonify([product.to_json() for product in products])
-
-if __name__ == '__main__':
-    app.run(debug=True)

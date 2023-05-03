@@ -1,7 +1,6 @@
-import sqlalchemy as db
-from database import Base
+from database import db
 
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=True)
@@ -19,3 +18,6 @@ class User(Base):
     def from_json(json_users):
         name = json_users.get('name')
         return User(name=name)
+
+    def __repr__(self):
+        return f'<User {self.name}>'

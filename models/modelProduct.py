@@ -1,14 +1,13 @@
-from database import Base
-import sqlalchemy as db
-from models.modelList import List
+from database import db
 
-class Product(Base):
+class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=True)
     quantity = db.Column(db.Integer, nullable=True)
 
-    list_id = db.Column(db.Integer, db.ForeignKey('lists.id'))
+    id_list = db.Column(db.Integer, db.ForeignKey('lists.id'), nullable=False)
+    list = db.relationship('List')
     
     def __init__(self, name=None, quantity=None):
         self.name = name
